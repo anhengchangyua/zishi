@@ -1,6 +1,6 @@
-# 不止一间自习室 - 微信小程序
+# 意涵自习室 - 微信小程序
 
-一个功能完整的自习室预订微信小程序，包含前端小程序和后端API服务。
+一个功能完整的自习室预订微信小程序，使用Taro框架开发，包含前端小程序和后端API服务。
 
 ## 项目概览
 
@@ -17,11 +17,12 @@
 ### 技术架构
 
 #### 前端（微信小程序）
-- **框架**: 微信小程序原生开发
-- **UI组件**: Vant Weapp
+- **框架**: Taro 3.x + React + TypeScript
+- **UI组件**: Taro UI
 - **状态管理**: MobX
 - **网络请求**: 封装的Request类
-- **样式**: WXSS + CSS变量
+- **样式**: SCSS + CSS变量
+- **跨端支持**: 微信小程序、支付宝小程序、H5
 
 #### 后端（Node.js）
 - **框架**: Express + TypeScript
@@ -34,6 +35,7 @@
 ## 项目结构
 
 ```
+<<<<<<< HEAD
 zishi/
 ├── 小程序前端/
 │   ├── app.js                 # 小程序入口
@@ -50,6 +52,27 @@ zishi/
 │   ├── store/               # 状态管理
 │   ├── utils/               # 工具函数
 │   └── assets/              # 静态资源
+=======
+yihan-study-room/
+├── Taro前端/
+│   ├── src/
+│   │   ├── app.tsx           # 应用入口
+│   │   ├── app.config.ts     # 全局配置
+│   │   ├── app.scss          # 全局样式
+│   │   ├── pages/            # 页面目录
+│   │   │   ├── index/       # 首页
+│   │   │   ├── store/       # 店铺相关
+│   │   │   ├── order/       # 订单相关
+│   │   │   ├── user/        # 用户相关
+│   │   │   └── common/      # 通用页面
+│   │   ├── components/      # 自定义组件
+│   │   ├── services/        # API服务
+│   │   ├── store/           # 状态管理
+│   │   ├── utils/           # 工具函数
+│   │   └── assets/          # 静态资源
+│   ├── config/              # Taro配置
+│   └── package.json
+>>>>>>> cursor/bc-7780bb23-63e4-40a9-9f89-dc7db56f4f7b-32f7
 │
 ├── backend/                 # 后端服务
 │   ├── src/
@@ -90,8 +113,30 @@ npm install
 - 配置服务器域名
 
 3. **开发调试**
+<<<<<<< HEAD
 - 使用微信开发者工具导入项目
 - 点击编译预览
+=======
+```bash
+# 微信小程序
+npm run dev:weapp
+
+# H5
+npm run dev:h5
+
+# 支付宝小程序
+npm run dev:alipay
+```
+
+4. **构建发布**
+```bash
+# 构建微信小程序
+npm run build:weapp
+
+# 构建H5
+npm run build:h5
+```
+>>>>>>> cursor/bc-7780bb23-63e4-40a9-9f89-dc7db56f4f7b-32f7
 
 ### 后端部署
 
@@ -256,4 +301,8 @@ docker run -d \
 
 ---
 
+<<<<<<< HEAD
 **不止一间自习室** - 让学习更简单，让专注更纯粹
+=======
+**意涵自习室** - 让学习更简单，让专注更纯粹
+>>>>>>> cursor/bc-7780bb23-63e4-40a9-9f89-dc7db56f4f7b-32f7
