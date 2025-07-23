@@ -1,0 +1,214 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 顶部搜索区域 -->
+  <view class="search-header">
+    <view class="city-selector" bindtap="onCitySelect">
+      <text class="city-name">{{currentCity}}</text>
+      <van-icon name="arrow-down" size="16px" />
+    </view>
+    
+    <view class="search-box">
+      <van-field
+        value="{{ searchKeyword }}"
+        placeholder="搜索门店"
+        border="{{ false }}"
+        bind:input="onSearchInput"
+        bind:confirm="onSearchConfirm"
+        use-button-slot
+      >
+        <van-button slot="button" size="small" type="primary" bindtap="onSearchConfirm">
+          搜索
+        </van-button>
+      </van-field>
+    </view>
+  </view>
+
+  <!-- 位置信息 -->
+  <view class="location-info" wx:if="{{ location }}" bindtap="onLocationTap">
+    <van-icon name="location-o" size="16px" color="#4A90E2" />
+    <text class="location-text">{{ location.address || '定位中...' }}</text>
+    <van-icon name="arrow" size="12px" />
+  </view>
+
+  <!-- 快捷功能 -->
+  <view class="quick-actions">
+    <view class="action-item" bindtap="onQuickBook">
+      <van-icon name="clock-o" size="24px" color="#4A90E2" />
+      <text>快速预订</text>
+    </view>
+    <view class="action-item" bindtap="onNearbyStores">
+      <van-icon name="location" size="24px" color="#4A90E2" />
+      <text>附近门店</text>
+    </view>
+    <view class="action-item" bindtap="onMyOrders">
+      <van-icon name="orders-o" size="24px" color="#4A90E2" />
+      <text>我的订单</text>
+    </view>
+    <view class="action-item" bindtap="onMembership">
+      <van-icon name="diamond-o" size="24px" color="#4A90E2" />
+      <text>会员中心</text>
+    </view>
+  </view>
+
+  <!-- 推荐店铺 -->
+  <view class="section" wx:if="{{ recommendedStores.length > 0 }}">
+    <view class="section-header">
+      <text class="section-title">为您推荐</text>
+      <text class="section-more" bindtap="onViewMore" data-type="recommended">更多</text>
+    </view>
+    <scroll-view class="horizontal-scroll" scroll-x>
+      <view class="store-card-horizontal" wx:for="{{ recommendedStores }}" wx:key="id" bindtap="onStoreCardTap" data-store="{{ item }}">
+        <van-image
+          width="120px"
+          height="80px"
+          src="{{ item.images[0] }}"
+          fit="cover"
+          radius="8px"
+          lazy-load
+        />
+        <view class="store-info">
+          <text class="store-name">{{ item.name }}</text>
+          <text class="store-address">{{ item.address }}</text>
+          <view class="store-meta">
+            <text class="price">¥{{ item.minPrice }}/小时起</text>
+            <text class="distance">{{ item.distance }}m</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 店铺列表 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">全部门店</text>
+      <view class="filter-buttons">
+        <text class="filter-btn {{ sortBy === 'distance' ? 'active' : '' }}" bindtap="onSortChange" data-sort="distance">距离</text>
+        <text class="filter-btn {{ sortBy === 'rating' ? 'active' : '' }}" bindtap="onSortChange" data-sort="rating">评分</text>
+        <text class="filter-btn {{ sortBy === 'price' ? 'active' : '' }}" bindtap="onSortChange" data-sort="price">价格</text>
+      </view>
+    </view>
+
+    <!-- 店铺卡片列表 -->
+    <view class="store-list">
+      <view class="store-card" wx:for="{{ storeList }}" wx:key="id" bindtap="onStoreCardTap" data-store="{{ item }}">
+        <view class="store-image">
+          <van-image
+            width="100px"
+            height="80px"
+            src="{{ item.images[0] }}"
+            fit="cover"
+            radius="8px"
+            lazy-load
+          />
+          <view class="store-status {{ item.status === 'open' ? 'open' : 'closed' }}">
+            {{ item.status === 'open' ? '营业中' : '已打烊' }}
+          </view>
+        </view>
+        
+        <view class="store-content">
+          <view class="store-header">
+            <text class="store-name">{{ item.name }}</text>
+            <view class="store-actions">
+              <van-icon 
+                name="{{ item.isFavorite ? 'like' : 'like-o' }}" 
+                size="20px" 
+                color="{{ item.isFavorite ? '#FF6B35' : '#999999' }}"
+                bindtap="onFavoriteTap"
+                data-store-id="{{ item.id }}"
+                data-favorite="{{ item.isFavorite }}"
+                catch:tap="true"
+              />
+              <van-icon 
+                name="phone-o" 
+                size="20px" 
+                color="#4A90E2"
+                bindtap="onCallTap"
+                data-phone="{{ item.phone }}"
+                catch:tap="true"
+              />
+            </view>
+          </view>
+          
+          <view class="store-address">
+            <van-icon name="location-o" size="12px" color="#999999" />
+            <text>{{ item.address }}</text>
+          </view>
+          
+          <view class="store-facilities">
+            <van-tag 
+              wx:for="{{ item.facilities }}" 
+              wx:for-item="facility" 
+              wx:key="*this"
+              size="mini" 
+              type="primary" 
+              plain
+            >
+              {{ facility }}
+            </van-tag>
+          </view>
+          
+          <view class="store-footer">
+            <view class="store-rating">
+              <van-icon name="star" size="12px" color="#FFD700" />
+              <text class="rating-score">{{ item.rating }}</text>
+              <text class="rating-count">({{ item.reviewCount }})</text>
+            </view>
+            
+            <view class="store-price">
+              <text class="price-label">¥{{ item.minPrice }}/小时起</text>
+            </view>
+            
+            <view class="store-distance">
+              <text class="distance-text">{{ item.distance }}m</text>
+            </view>
+          </view>
+          
+          <view class="store-business-hours">
+            <text class="hours-text">营业时间：{{ item.businessHours }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{ hasMore }}">
+      <van-loading wx:if="{{ loadingMore }}" size="16px" />
+      <text wx:else bindtap="onLoadMore">加载更多</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{ !loading && storeList.length === 0 }}">
+      <van-icon name="shop-o" size="60px" color="#CCCCCC" />
+      <text class="empty-text">暂无门店信息</text>
+      <van-button type="primary" size="small" bindtap="onRefresh">刷新</van-button>
+    </view>
+  </view>
+</view>
+
+<!-- 城市选择弹窗 -->
+<van-popup show="{{ showCityPicker }}" position="bottom" bind:close="onCityPickerClose">
+  <view class="city-picker">
+    <view class="picker-header">
+      <text class="picker-title">选择城市</text>
+      <van-icon name="cross" bindtap="onCityPickerClose" />
+    </view>
+    <view class="city-list">
+      <view 
+        class="city-item {{ item === currentCity ? 'active' : '' }}"
+        wx:for="{{ cityList }}" 
+        wx:key="*this"
+        bindtap="onCityChange"
+        data-city="{{ item }}"
+      >
+        {{ item }}
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<!-- 全局Loading -->
+<van-loading wx:if="{{ loading }}" type="spinner" size="24px" />
+
+<!-- Toast提示 -->
+<van-toast id="van-toast" />
