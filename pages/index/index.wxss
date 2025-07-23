@@ -1,0 +1,416 @@
+/* pages/index/index.wxss */
+
+.container {
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+/* 搜索头部 */
+.search-header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--white);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+
+.city-selector {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm);
+  margin-right: var(--spacing-sm);
+  background-color: var(--background-color);
+  border-radius: var(--border-radius-sm);
+  min-width: 120rpx;
+}
+
+.city-name {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  margin-right: var(--spacing-xs);
+}
+
+.search-box {
+  flex: 1;
+  background-color: var(--background-color);
+  border-radius: var(--border-radius-sm);
+}
+
+/* 位置信息 */
+.location-info {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--white);
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.location-text {
+  flex: 1;
+  margin-left: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+}
+
+/* 快捷功能 */
+.quick-actions {
+  display: flex;
+  background-color: var(--white);
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+}
+
+.action-item text {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-secondary);
+  margin-top: var(--spacing-xs);
+}
+
+/* 区块样式 */
+.section {
+  background-color: var(--white);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.section-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.section-more {
+  font-size: var(--font-size-sm);
+  color: var(--primary-color);
+}
+
+/* 筛选按钮 */
+.filter-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.filter-btn {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s;
+}
+
+.filter-btn.active {
+  color: var(--primary-color);
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+/* 水平滚动推荐 */
+.horizontal-scroll {
+  padding: var(--spacing-md);
+  white-space: nowrap;
+}
+
+.store-card-horizontal {
+  display: inline-block;
+  width: 280rpx;
+  margin-right: var(--spacing-md);
+  vertical-align: top;
+}
+
+.store-card-horizontal:last-child {
+  margin-right: 0;
+}
+
+.store-card-horizontal .store-info {
+  padding: var(--spacing-sm) 0;
+}
+
+.store-card-horizontal .store-name {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-card-horizontal .store-address {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light);
+  margin-bottom: var(--spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-card-horizontal .store-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.store-card-horizontal .price {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.store-card-horizontal .distance {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light);
+}
+
+/* 店铺列表 */
+.store-list {
+  padding: 0 var(--spacing-md);
+}
+
+.store-card {
+  display: flex;
+  padding: var(--spacing-md);
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+.store-card:active {
+  transform: scale(0.98);
+}
+
+.store-image {
+  position: relative;
+  margin-right: var(--spacing-md);
+}
+
+.store-status {
+  position: absolute;
+  top: var(--spacing-xs);
+  left: var(--spacing-xs);
+  padding: 2rpx var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  font-size: 20rpx;
+  color: var(--white);
+}
+
+.store-status.open {
+  background-color: var(--success-color);
+}
+
+.store-status.closed {
+  background-color: var(--error-color);
+}
+
+.store-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.store-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.store-name {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-color);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.store-address {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.store-address text {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  margin-left: var(--spacing-xs);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-facilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+}
+
+.store-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xs);
+}
+
+.store-rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-score {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-color);
+  margin-left: 4rpx;
+}
+
+.rating-count {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light);
+  margin-left: 4rpx;
+}
+
+.store-price {
+  flex: 1;
+  text-align: center;
+}
+
+.price-label {
+  font-size: var(--font-size-sm);
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+
+.store-distance {
+  text-align: right;
+}
+
+.distance-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-color-light);
+}
+
+.store-business-hours {
+  margin-top: var(--spacing-xs);
+}
+
+.hours-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-color-light);
+}
+
+/* 加载更多 */
+.load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  color: var(--text-color-light);
+  font-size: var(--font-size-sm);
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  color: var(--text-color-light);
+}
+
+.empty-text {
+  font-size: var(--font-size-md);
+  margin: var(--spacing-md) 0;
+}
+
+/* 城市选择弹窗 */
+.city-picker {
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+  max-height: 60vh;
+}
+
+.picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.picker-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.city-list {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.city-item {
+  padding: var(--spacing-md);
+  border-bottom: 1rpx solid var(--border-color);
+  font-size: var(--font-size-md);
+  color: var(--text-color);
+  transition: all 0.3s;
+}
+
+.city-item:last-child {
+  border-bottom: none;
+}
+
+.city-item.active {
+  color: var(--primary-color);
+  background-color: rgba(74, 144, 226, 0.05);
+}
+
+.city-item:active {
+  background-color: var(--background-color);
+}
+
+/* 响应式适配 */
+@media (max-width: 375px) {
+  .store-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .store-name {
+    font-size: var(--font-size-md);
+  }
+  
+  .quick-actions {
+    padding: var(--spacing-md);
+  }
+  
+  .action-item text {
+    font-size: 22rpx;
+  }
+}
