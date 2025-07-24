@@ -1,0 +1,124 @@
+// 主题颜色
+$primary-color: #4A90E2;
+$secondary-color: #FF6B35;
+$success-color: #52C41A;
+$warning-color: #FAAD14;
+$error-color: #F5222D;
+
+// 文字颜色
+$text-color: #333333;
+$text-color-secondary: #666666;
+$text-color-light: #999999;
+$text-color-white: #FFFFFF;
+$text-color-placeholder: #CCCCCC;
+
+// 背景颜色
+$background-color: #F5F5F5;
+$background-color-white: #FFFFFF;
+$background-color-mask: rgba(0, 0, 0, 0.5);
+
+// 边框颜色
+$border-color: #E8E8E8;
+$border-color-light: #F0F0F0;
+$border-color-dark: #D9D9D9;
+
+// 间距
+$spacing-xs: 8rpx;
+$spacing-sm: 16rpx;
+$spacing-md: 24rpx;
+$spacing-lg: 32rpx;
+$spacing-xl: 48rpx;
+$spacing-xxl: 64rpx;
+
+// 圆角
+$border-radius-xs: 4rpx;
+$border-radius-sm: 8rpx;
+$border-radius-md: 12rpx;
+$border-radius-lg: 16rpx;
+$border-radius-xl: 24rpx;
+$border-radius-circle: 50%;
+
+// 字体大小
+$font-size-xs: 20rpx;
+$font-size-sm: 24rpx;
+$font-size-md: 28rpx;
+$font-size-lg: 32rpx;
+$font-size-xl: 36rpx;
+$font-size-xxl: 40rpx;
+$font-size-title: 44rpx;
+
+// 行高
+$line-height-xs: 1.2;
+$line-height-sm: 1.4;
+$line-height-md: 1.5;
+$line-height-lg: 1.6;
+$line-height-xl: 1.8;
+
+// 字重
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 600;
+
+// 阴影
+$box-shadow-xs: 0 2rpx 4rpx rgba(0, 0, 0, 0.05);
+$box-shadow-sm: 0 4rpx 8rpx rgba(0, 0, 0, 0.08);
+$box-shadow-md: 0 8rpx 16rpx rgba(0, 0, 0, 0.12);
+$box-shadow-lg: 0 16rpx 32rpx rgba(0, 0, 0, 0.16);
+$box-shadow-xl: 0 24rpx 48rpx rgba(0, 0, 0, 0.20);
+
+// 层级
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-toast: 1080;
+
+// 动画时间
+$animation-duration-fast: 0.15s;
+$animation-duration-base: 0.2s;
+$animation-duration-slow: 0.3s;
+
+// 动画曲线
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+// 屏幕尺寸断点
+$screen-xs: 480rpx;
+$screen-sm: 576rpx;
+$screen-md: 768rpx;
+$screen-lg: 992rpx;
+$screen-xl: 1200rpx;
+
+// 容器最大宽度
+$container-max-width: 1200rpx;
+
+// 导航栏高度
+$navbar-height: 88rpx;
+$tabbar-height: 98rpx;
+$status-bar-height: 44rpx;
+
+// 按钮相关
+$button-height-sm: 56rpx;
+$button-height-md: 64rpx;
+$button-height-lg: 72rpx;
+$button-padding-horizontal: 24rpx;
+
+// 输入框相关
+$input-height: 64rpx;
+$input-padding-horizontal: 24rpx;
+$input-border-width: 1rpx;
+
+// 卡片相关
+$card-padding: 24rpx;
+$card-margin: 16rpx;
+$card-border-radius: $border-radius-md;
+
+// 列表相关
+$list-item-height: 88rpx;
+$list-item-padding: 24rpx;
+$list-divider-height: 1rpx;

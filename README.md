@@ -16,13 +16,13 @@
 
 ### 技术架构
 
-#### 前端（微信小程序）
-- **框架**: Taro 3.x + React + TypeScript
-- **UI组件**: Taro UI
-- **状态管理**: MobX
-- **网络请求**: 封装的Request类
+#### 前端（uni-app跨端应用）
+- **框架**: uni-app 3.x + Vue 3 + TypeScript
+- **UI组件**: uni-ui + 自定义组件
+- **状态管理**: Pinia
+- **网络请求**: luch-request
 - **样式**: SCSS + CSS变量
-- **跨端支持**: 微信小程序、支付宝小程序、H5
+- **跨端支持**: 微信小程序、支付宝小程序、H5、App
 
 #### 后端（Node.js）
 - **框架**: Express + TypeScript
@@ -35,30 +35,12 @@
 ## 项目结构
 
 ```
-<<<<<<< HEAD
-zishi/
-├── 小程序前端/
-│   ├── app.js                 # 小程序入口
-│   ├── app.json              # 全局配置
-│   ├── app.wxss              # 全局样式
-│   ├── pages/                # 页面目录
-│   │   ├── index/           # 首页
-│   │   ├── store/           # 店铺相关
-│   │   ├── order/           # 订单相关
-│   │   ├── user/            # 用户相关
-│   │   └── common/          # 通用页面
-│   ├── components/          # 自定义组件
-│   ├── services/            # API服务
-│   ├── store/               # 状态管理
-│   ├── utils/               # 工具函数
-│   └── assets/              # 静态资源
-=======
 yihan-study-room/
-├── Taro前端/
+├── uni-app前端/
 │   ├── src/
-│   │   ├── app.tsx           # 应用入口
-│   │   ├── app.config.ts     # 全局配置
-│   │   ├── app.scss          # 全局样式
+│   │   ├── main.ts           # 应用入口
+│   │   ├── App.vue           # 根组件
+│   │   ├── pages.json        # 页面配置
 │   │   ├── pages/            # 页面目录
 │   │   │   ├── index/       # 首页
 │   │   │   ├── store/       # 店铺相关
@@ -66,13 +48,17 @@ yihan-study-room/
 │   │   │   ├── user/        # 用户相关
 │   │   │   └── common/      # 通用页面
 │   │   ├── components/      # 自定义组件
-│   │   ├── services/        # API服务
-│   │   ├── store/           # 状态管理
+│   │   ├── api/             # API服务
+│   │   ├── stores/          # Pinia状态管理
 │   │   ├── utils/           # 工具函数
-│   │   └── assets/          # 静态资源
-│   ├── config/              # Taro配置
+│   │   ├── types/           # TypeScript类型
+│   │   ├── constants/       # 常量定义
+│   │   ├── hooks/           # 组合式API
+│   │   ├── assets/          # 静态资源
+│   │   └── static/          # 静态文件
+│   ├── vite.config.ts       # Vite配置
+│   ├── tsconfig.json        # TypeScript配置
 │   └── package.json
->>>>>>> cursor/bc-7780bb23-63e4-40a9-9f89-dc7db56f4f7b-32f7
 │
 ├── backend/                 # 后端服务
 │   ├── src/
@@ -98,7 +84,7 @@ yihan-study-room/
 - Node.js >= 16.0.0
 - MySQL >= 8.0
 - Redis >= 6.0
-- 微信开发者工具
+- HBuilderX 或微信开发者工具
 
 ### 前端部署
 
@@ -107,36 +93,57 @@ yihan-study-room/
 npm install
 ```
 
-2. **配置小程序**
-- 在微信公众平台注册小程序
-- 修改 `project.config.json` 中的 `appid`
-- 配置服务器域名
+2. **配置应用**
+- 在对应平台注册应用（微信小程序、支付宝小程序等）
+- 修改 `src/pages.json` 中的相关配置
+- 配置服务器域名和API地址
 
 3. **开发调试**
-<<<<<<< HEAD
-- 使用微信开发者工具导入项目
-- 点击编译预览
-=======
 ```bash
 # 微信小程序
-npm run dev:weapp
+npm run dev:mp-weixin
 
 # H5
 npm run dev:h5
 
 # 支付宝小程序
-npm run dev:alipay
+npm run dev:mp-alipay
+
+# App
+npm run dev:app
+
+# 其他平台
+npm run dev:mp-baidu    # 百度小程序
+npm run dev:mp-toutiao  # 字节跳动小程序
+npm run dev:mp-qq       # QQ小程序
 ```
 
 4. **构建发布**
 ```bash
 # 构建微信小程序
-npm run build:weapp
+npm run build:mp-weixin
 
 # 构建H5
 npm run build:h5
+
+# 构建App
+npm run build:app
+
+# 构建支付宝小程序
+npm run build:mp-alipay
 ```
->>>>>>> cursor/bc-7780bb23-63e4-40a9-9f89-dc7db56f4f7b-32f7
+
+5. **代码检查和格式化**
+```bash
+# 类型检查
+npm run type-check
+
+# 代码检查
+npm run lint
+
+# 代码格式化
+npm run format
+```
 
 ### 后端部署
 
