@@ -3,13 +3,13 @@
     <!-- 搜索头部 -->
     <view class="search-header">
       <view class="search-bar" @click="handleSearch">
-        <uni-icons type="search" size="18" color="#999"></uni-icons>
+        <text class="search-icon">🔍</text>
         <text class="search-placeholder">搜索自习室、地点</text>
       </view>
       <view class="location-btn" @click="handleLocationSelect">
-        <uni-icons type="location" size="16" color="#4A90E2"></uni-icons>
+        <text class="location-icon">📍</text>
         <text class="location-text">{{ currentCity }}</text>
-        <uni-icons type="arrowdown" size="12" color="#666"></uni-icons>
+        <text class="arrow-icon">▼</text>
       </view>
     </view>
 
@@ -22,7 +22,7 @@
         @click="handleQuickAction(action)"
       >
         <view class="action-icon">
-          <uni-icons :type="action.icon" size="24" :color="action.color"></uni-icons>
+          <text class="icon-text">{{ getActionIcon(action.icon) }}</text>
         </view>
         <text class="action-text">{{ action.text }}</text>
       </view>
@@ -66,16 +66,15 @@
           @click="handleFilterSelect(filter)"
         >
           <text class="filter-text">{{ filter.text }}</text>
-          <uni-icons 
+          <text 
             v-if="filter.hasArrow" 
-            type="arrowdown" 
-            size="12" 
-            :color="filter.active ? '#4A90E2' : '#999'"
-          ></uni-icons>
+            class="filter-arrow"
+            :style="{ color: filter.active ? '#4A90E2' : '#999' }"
+          >▼</text>
         </view>
       </view>
       <view class="filter-sort" @click="handleSortSelect">
-        <uni-icons type="list" size="16" color="#666"></uni-icons>
+        <text class="sort-icon">☰</text>
       </view>
     </view>
 
@@ -105,7 +104,11 @@
           </view>
           <view class="store-footer">
             <view class="store-rating">
-              <uni-rate :value="store.rating" size="12" readonly></uni-rate>
+              <view class="rating-stars">
+                <text v-for="i in 5" :key="i" class="star">
+                  {{ i <= store.rating ? '⭐' : '☆' }}
+                </text>
+              </view>
               <text class="rating-text">{{ store.rating }}</text>
               <text class="review-count">({{ store.reviewCount }})</text>
             </view>
@@ -124,14 +127,13 @@
                 :class="{ active: store.isFavorite }"
                 @click.stop="handleFavorite(store)"
               >
-                <uni-icons 
-                  :type="store.isFavorite ? 'heart-filled' : 'heart'" 
-                  size="16" 
-                  :color="store.isFavorite ? '#FF6B35' : '#999'"
-                ></uni-icons>
+                <text 
+                  class="favorite-icon"
+                  :style="{ color: store.isFavorite ? '#FF6B35' : '#999' }"
+                >{{ store.isFavorite ? '❤️' : '🤍' }}</text>
               </button>
               <button class="action-btn call-btn" @click.stop="handleCall(store)">
-                <uni-icons type="phone" size="16" color="#4A90E2"></uni-icons>
+                <text class="phone-icon">📞</text>
               </button>
               <button class="action-btn book-btn" @click.stop="handleBooking(store)">
                 预订
@@ -144,12 +146,16 @@
 
     <!-- 加载更多 -->
     <view class="load-more" v-if="hasMore">
-      <uni-load-more :status="loadStatus"></uni-load-more>
+      <view class="load-more-text">
+        <text v-if="loadStatus === 'loading'">加载中...</text>
+        <text v-else-if="loadStatus === 'noMore'">没有更多了</text>
+        <text v-else>上拉加载更多</text>
+      </view>
     </view>
 
     <!-- 空状态 -->
     <view class="empty-state" v-if="!loading && storeList.length === 0">
-      <uni-icons type="shop" size="80" color="#ccc"></uni-icons>
+      <text class="empty-icon">🏪</text>
       <text class="empty-text">暂无自习室数据</text>
       <button class="empty-btn" @click="handleRefresh">刷新重试</button>
     </view>
@@ -466,6 +472,17 @@ const formatDistance = (distance?: number) => {
 const getStatusText = (status: string) => {
   return STORE_STATUS_TEXT[status] || status
 }
+
+// 获取操作图标
+const getActionIcon = (iconType: string) => {
+  const iconMap: Record<string, string> = {
+    location: '📍',
+    star: '⭐',
+    calendar: '📅',
+    gift: '🎁'
+  }
+  return iconMap[iconType] || '📱'
+}
 </script>
 
 <style lang="scss" scoped>
@@ -490,6 +507,11 @@ const getStatusText = (status: string) => {
     border-radius: $border-radius-lg;
     margin-right: $spacing-md;
     
+    .search-icon {
+      font-size: 18px;
+      color: #999;
+    }
+    
     .search-placeholder {
       margin-left: $spacing-sm;
       color: $text-color-light;
@@ -502,11 +524,21 @@ const getStatusText = (status: string) => {
     align-items: center;
     padding: 0 $spacing-sm;
     
+    .location-icon {
+      font-size: 16px;
+      color: $primary-color;
+    }
+    
     .location-text {
       margin: 0 4rpx;
       color: $primary-color;
       font-size: $font-size-md;
       font-weight: $font-weight-medium;
+    }
+    
+    .arrow-icon {
+      font-size: 12px;
+      color: #666;
     }
   }
 }
@@ -532,6 +564,10 @@ const getStatusText = (status: string) => {
       background-color: rgba(74, 144, 226, 0.1);
       border-radius: $border-radius-circle;
       margin-bottom: $spacing-sm;
+      
+      .icon-text {
+        font-size: 24px;
+      }
     }
     
     .action-text {
@@ -752,6 +788,15 @@ const getStatusText = (status: string) => {
         display: flex;
         align-items: center;
         
+        .rating-stars {
+          display: flex;
+          
+          .star {
+            font-size: 12px;
+            margin-right: 2px;
+          }
+        }
+        
         .rating-text {
           margin-left: 4rpx;
           font-size: $font-size-sm;
@@ -833,6 +878,12 @@ const getStatusText = (status: string) => {
 
 .load-more {
   padding: $spacing-md;
+  
+  .load-more-text {
+    text-align: center;
+    color: $text-color-light;
+    font-size: $font-size-sm;
+  }
 }
 
 .empty-state {
@@ -841,6 +892,11 @@ const getStatusText = (status: string) => {
   align-items: center;
   justify-content: center;
   padding: $spacing-xxl;
+  
+  .empty-icon {
+    font-size: 80px;
+    margin-bottom: $spacing-md;
+  }
   
   .empty-text {
     margin: $spacing-md 0;

@@ -1,6 +1,6 @@
 // backend/src/config/database.ts
 import mysql from 'mysql2/promise'
-import logger from '../utils/logger'
+// import logger from '../utils/logger'
 
 interface DatabaseConfig {
   host: string
@@ -9,9 +9,9 @@ interface DatabaseConfig {
   password: string
   database: string
   connectionLimit: number
-  acquireTimeout: number
-  timeout: number
-  reconnect: boolean
+  // acquireTimeout: number
+  // timeout: number
+  // reconnect: boolean
 }
 
 class Database {
@@ -27,9 +27,9 @@ class Database {
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_NAME || 'zishi',
       connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT || '10'),
-      acquireTimeout: parseInt(process.env.DB_ACQUIRE_TIMEOUT || '60000'),
-      timeout: parseInt(process.env.DB_TIMEOUT || '60000'),
-      reconnect: true
+      // acquireTimeout: parseInt(process.env.DB_ACQUIRE_TIMEOUT || '60000'),
+      // timeout: parseInt(process.env.DB_TIMEOUT || '60000'),
+      // reconnect: true
     }
   }
 
@@ -51,9 +51,8 @@ class Database {
         waitForConnections: true,
         connectionLimit: this.config.connectionLimit,
         queueLimit: 0,
-        acquireTimeout: this.config.acquireTimeout,
-        timeout: this.config.timeout,
-        reconnect: this.config.reconnect,
+        // acquireTimeout: this.config.acquireTimeout,
+        // reconnect: this.config.reconnect,
         charset: 'utf8mb4',
         timezone: '+08:00',
         supportBigNumbers: true,
@@ -66,13 +65,13 @@ class Database {
       await connection.ping()
       connection.release()
 
-      logger.info('Database connected successfully')
+      console.log('Database connected successfully')
       
       // 初始化数据库表
       await this.initializeTables()
       
     } catch (error) {
-      logger.error('Database connection failed:', error)
+      console.error('Database connection failed:', error)
       throw error
     }
   }
@@ -86,7 +85,7 @@ class Database {
       const [results] = await this.pool.execute(sql, params)
       return results
     } catch (error) {
-      logger.error('Database query failed:', { sql, params, error })
+      console.error('Database query failed:', { sql, params, error })
       throw error
     }
   }
@@ -247,19 +246,19 @@ class Database {
       try {
         await this.query(sql)
       } catch (error) {
-        logger.error('Failed to create table:', { sql, error })
+        console.error('Failed to create table:', { sql, error })
         throw error
       }
     }
 
-    logger.info('Database tables initialized successfully')
+          console.log('Database tables initialized successfully')
   }
 
   public async close(): Promise<void> {
     if (this.pool) {
       await this.pool.end()
       this.pool = null
-      logger.info('Database connection closed')
+      console.log('Database connection closed')
     }
   }
 }
@@ -267,6 +266,7 @@ class Database {
 // 导出单例实例
 const database = Database.getInstance()
 
+export const createConnection = () => database.connect()
 export const connectDatabase = () => database.connect()
 export const query = (sql: string, params?: any[]) => database.query(sql, params)
 export const transaction = <T>(callback: (connection: mysql.PoolConnection) => Promise<T>) => database.transaction(callback)
